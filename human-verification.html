@@ -1,1 +1,4071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Report | ORANGE-Q AI</title>
+
+  <meta
+    name="description"
+    content="ORANGE-Q AI — screening, quality and verification report for orange planting material."
+  />
+
+  <meta name="theme-color" content="#102A43" />
+
+  <style>
+    :root {
+      --bg: #f4f8fc;
+      --surface: rgba(255, 255, 255, 0.92);
+      --surface-solid: #ffffff;
+      --surface-soft: #f7fafc;
+
+      --text: #102a43;
+      --text-soft: #486581;
+      --text-muted: #829ab1;
+
+      --blue: #1683ff;
+      --blue-dark: #0b63ce;
+      --blue-soft: #e8f3ff;
+
+      --green: #16a36a;
+      --green-dark: #087f52;
+      --green-soft: #e7f8f0;
+
+      --orange: #f59e0b;
+      --orange-soft: #fff6df;
+
+      --red: #dc4c64;
+      --red-soft: #fff0f2;
+
+      --border: #d9e2ec;
+      --shadow: 0 18px 45px rgba(16, 42, 67, 0.08);
+      --shadow-soft: 0 8px 24px rgba(16, 42, 67, 0.06);
+
+      --radius-lg: 22px;
+      --radius-md: 15px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(22, 131, 255, 0.08), transparent 30%),
+        radial-gradient(circle at top right, rgba(22, 163, 106, 0.08), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+    }
+
+    /* =========================
+       TOPBAR
+    ========================= */
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 0 28px;
+      background: rgba(255, 255, 255, 0.88);
+      border-bottom: 1px solid rgba(217, 226, 236, 0.85);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 210px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #1683ff, #16a36a);
+      box-shadow: 0 8px 18px rgba(22, 131, 255, 0.22);
+      color: white;
+      font-weight: 900;
+      font-size: 19px;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-copy span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 11px;
+      margin-top: 1px;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 12px 7px 7px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: white;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #1683ff, #16a36a);
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .user-info strong {
+      display: block;
+      font-size: 12px;
+    }
+
+    .user-info span {
+      display: block;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    /* =========================
+       LAYOUT
+    ========================= */
+
+    .page {
+      width: min(1440px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 30px 0 60px;
+    }
+
+    .breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--blue);
+    }
+
+    .breadcrumb .current {
+      color: var(--text-soft);
+      font-weight: 700;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .report-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.97),
+          rgba(246, 251, 255, 0.94)
+        );
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .report-hero::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      right: -100px;
+      top: -120px;
+      background: rgba(22, 131, 255, 0.06);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue-dark);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      margin-bottom: 10px;
+    }
+
+    .hero-subtitle {
+      max-width: 750px;
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+
+    .report-id-card {
+      position: relative;
+      z-index: 1;
+      min-width: 230px;
+      padding: 18px;
+      border-radius: 16px;
+      background: white;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .report-id-label {
+      color: var(--text-muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .report-id {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--blue-dark);
+      word-break: break-word;
+    }
+
+    .report-date {
+      color: var(--text-muted);
+      font-size: 11px;
+      margin-top: 5px;
+    }
+
+    /* =========================
+       ACTION BAR
+    ========================= */
+
+    .action-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px;
+      margin-bottom: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .action-left,
+    .action-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      align-items: center;
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 800;
+      transition: 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: white;
+      box-shadow: 0 7px 16px rgba(22, 131, 255, 0.18);
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: #b9c9d8;
+      background: #fbfdff;
+    }
+
+    .btn-green {
+      background: var(--green);
+      color: white;
+      box-shadow: 0 7px 16px rgba(22, 163, 106, 0.16);
+    }
+
+    .btn-green:hover {
+      background: var(--green-dark);
+    }
+
+    .btn-danger {
+      background: white;
+      color: var(--red);
+      border-color: #f1c9d0;
+    }
+
+    /* =========================
+       FILTERS
+    ========================= */
+
+    .filters {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr auto;
+      gap: 12px;
+      padding: 17px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 22px;
+    }
+
+    .field label {
+      display: block;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      height: 40px;
+      padding: 0 11px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+      background: white;
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(22, 131, 255, 0.08);
+    }
+
+    .filter-button-wrap {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    /* =========================
+       KPI GRID
+    ========================= */
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin: 28px 0 13px;
+    }
+
+    .section-heading h2 {
+      font-size: 18px;
+      letter-spacing: -0.025em;
+    }
+
+    .section-heading p {
+      color: var(--text-muted);
+      font-size: 11px;
+      margin-top: 2px;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .kpi {
+      padding: 17px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+      min-height: 125px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi::after {
+      content: "";
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      right: -28px;
+      top: -28px;
+      background: rgba(22, 131, 255, 0.055);
+    }
+
+    .kpi.green::after {
+      background: rgba(22, 163, 106, 0.07);
+    }
+
+    .kpi.orange::after {
+      background: rgba(245, 158, 11, 0.07);
+    }
+
+    .kpi.red::after {
+      background: rgba(220, 76, 100, 0.07);
+    }
+
+    .kpi-label {
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.055em;
+    }
+
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-top: 9px;
+      line-height: 1;
+    }
+
+    .kpi-note {
+      color: var(--text-soft);
+      font-size: 10px;
+      margin-top: 8px;
+    }
+
+    /* =========================
+       MAIN GRID
+    ========================= */
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(340px, 0.75fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .card-header h3 {
+      font-size: 15px;
+      letter-spacing: -0.015em;
+    }
+
+    .card-header p {
+      color: var(--text-muted);
+      font-size: 10px;
+      margin-top: 2px;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    /* =========================
+       DONUT
+    ========================= */
+
+    .distribution-layout {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .donut-wrap {
+      display: grid;
+      place-items: center;
+      position: relative;
+      width: 190px;
+      height: 190px;
+      margin: 0 auto;
+    }
+
+    .donut {
+      width: 178px;
+      height: 178px;
+      border-radius: 50%;
+      background:
+        conic-gradient(
+          var(--green) 0deg,
+          var(--green) var(--suitable-angle),
+          var(--orange) var(--suitable-angle),
+          var(--orange) calc(var(--suitable-angle) + var(--review-angle)),
+          var(--red) calc(var(--suitable-angle) + var(--review-angle)),
+          var(--red) 360deg
+        );
+      position: relative;
+      box-shadow: 0 10px 30px rgba(16, 42, 67, 0.08);
+    }
+
+    .donut::after {
+      content: "";
+      position: absolute;
+      inset: 34px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 1px #edf2f7;
+    }
+
+    .donut-center {
+      position: absolute;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .donut-center strong {
+      display: block;
+      font-size: 27px;
+      line-height: 1;
+    }
+
+    .donut-center span {
+      color: var(--text-muted);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+    }
+
+    .legend {
+      display: grid;
+      gap: 13px;
+    }
+
+    .legend-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .legend-label {
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .legend-count {
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .legend-percent {
+      color: var(--text-muted);
+      font-size: 10px;
+      grid-column: 2 / 4;
+      margin-top: -7px;
+    }
+
+    /* =========================
+       CURRENT ASSESSMENT
+    ========================= */
+
+    .assessment-banner {
+      padding: 13px;
+      border-radius: 12px;
+      background: var(--blue-soft);
+      border: 1px solid #cfe5ff;
+      margin-bottom: 15px;
+    }
+
+    .assessment-banner strong {
+      display: block;
+      color: var(--blue-dark);
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    .assessment-banner span {
+      color: var(--text-soft);
+      font-size: 10px;
+    }
+
+    .detail-list {
+      display: grid;
+      gap: 0;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 15px;
+      padding: 11px 0;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .detail-value {
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    /* =========================
+       TABLE
+    ========================= */
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th {
+      text-align: left;
+      padding: 12px 15px;
+      color: var(--text-muted);
+      background: #f8fbfd;
+      border-bottom: 1px solid var(--border);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 900;
+    }
+
+    td {
+      padding: 13px 15px;
+      border-bottom: 1px solid #edf2f7;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td strong {
+      color: var(--text);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .status-green {
+      color: var(--green-dark);
+      background: var(--green-soft);
+    }
+
+    .status-orange {
+      color: #9a6700;
+      background: var(--orange-soft);
+    }
+
+    .status-red {
+      color: #a72d42;
+      background: var(--red-soft);
+    }
+
+    .status-blue {
+      color: var(--blue-dark);
+      background: var(--blue-soft);
+    }
+
+    /* =========================
+       BARS
+    ========================= */
+
+    .bar-list {
+      display: grid;
+      gap: 17px;
+    }
+
+    .bar-item {
+      display: grid;
+      gap: 7px;
+    }
+
+    .bar-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 11px;
+    }
+
+    .bar-top strong {
+      font-weight: 800;
+    }
+
+    .bar-top span {
+      color: var(--text-muted);
+      font-weight: 800;
+    }
+
+    .bar-track {
+      width: 100%;
+      height: 9px;
+      border-radius: 999px;
+      background: #edf2f7;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #1683ff, #16a36a);
+      transition: width 0.6s ease;
+    }
+
+    /* =========================
+       METRIC GRID
+    ========================= */
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 11px;
+    }
+
+    .metric-box {
+      padding: 14px;
+      border-radius: 13px;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+    }
+
+    .metric-box span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 800;
+    }
+
+    .metric-box strong {
+      display: block;
+      font-size: 19px;
+      margin-top: 5px;
+      letter-spacing: -0.03em;
+    }
+
+    /* =========================
+       VERIFICATION
+    ========================= */
+
+    .verification-card {
+      display: grid;
+      gap: 13px;
+    }
+
+    .verification-status-box {
+      padding: 16px;
+      border-radius: 13px;
+      background: var(--green-soft);
+      border: 1px solid #c9efdf;
+    }
+
+    .verification-status-box.pending {
+      background: var(--orange-soft);
+      border-color: #f4dfae;
+    }
+
+    .verification-status-box.reject {
+      background: var(--red-soft);
+      border-color: #f1c9d0;
+    }
+
+    .verification-status-box strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .verification-status-box span {
+      display: block;
+      margin-top: 3px;
+      color: var(--text-soft);
+      font-size: 10px;
+    }
+
+    /* =========================
+       LIMITATION NOTICE
+    ========================= */
+
+    .notice {
+      margin-top: 22px;
+      padding: 18px 20px;
+      border-radius: var(--radius-md);
+      background: #f9fbfd;
+      border: 1px dashed #b9c9d8;
+    }
+
+    .notice-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .notice-title span {
+      width: 20px;
+      height: 20px;
+      display: grid;
+      place-items: center;
+      border-radius: 7px;
+      background: var(--orange-soft);
+      color: #9a6700;
+      font-size: 11px;
+    }
+
+    .notice p {
+      color: var(--text-soft);
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer {
+      margin-top: 28px;
+      padding: 20px 0 5px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--text-muted);
+      font-size: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer strong {
+      color: var(--text-soft);
+    }
+
+    /* =========================
+       EMPTY STATE
+    ========================= */
+
+    .empty-state {
+      padding: 35px 20px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .empty-icon {
+      width: 42px;
+      height: 42px;
+      margin: 0 auto 10px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .empty-state strong {
+      display: block;
+      color: var(--text);
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+
+    .empty-state p {
+      font-size: 10px;
+    }
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 999;
+      max-width: 340px;
+      padding: 13px 16px;
+      border-radius: 12px;
+      color: white;
+      background: #102a43;
+      box-shadow: 0 15px 35px rgba(16, 42, 67, 0.22);
+      font-size: 11px;
+      font-weight: 700;
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* =========================
+       PRINT
+    ========================= */
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 12mm;
+      }
+
+      body {
+        background: white;
+        color: #102a43;
+      }
+
+      .topbar,
+      .action-bar,
+      .filters,
+      .toast,
+      .no-print {
+        display: none !important;
+      }
+
+      .page {
+        width: 100%;
+        padding: 0;
+      }
+
+      .report-hero,
+      .card,
+      .kpi {
+        box-shadow: none !important;
+        background: white !important;
+      }
+
+      .report-hero {
+        border: 1px solid #d9e2ec;
+        margin-bottom: 15px;
+      }
+
+      .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .main-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .card,
+      .report-hero,
+      .kpi {
+        break-inside: avoid;
+      }
+
+      .section-heading {
+        break-after: avoid;
+      }
+
+      .footer {
+        margin-top: 20px;
+      }
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1200px) {
+      .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .filters {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .filter-button-wrap {
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .report-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .report-id-card {
+        min-width: 0;
+        width: 100%;
+      }
+
+      .distribution-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .donut-wrap {
+        margin-bottom: 8px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .topbar {
+        height: auto;
+        min-height: 70px;
+        padding: 12px 16px;
+      }
+
+      .user-info {
+        display: none;
+      }
+
+      .page {
+        width: min(100% - 24px, 1440px);
+        padding-top: 18px;
+      }
+
+      .report-hero {
+        padding: 21px;
+      }
+
+      .hero-title {
+        font-size: 29px;
+      }
+
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+      .action-bar {
+        align-items: stretch;
+      }
+
+      .action-left,
+      .action-right {
+        width: 100%;
+      }
+
+      .action-right .btn,
+      .action-left .btn {
+        flex: 1;
+      }
+
+      .metric-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .detail-row {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+
+      .footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 440px) {
+      .brand-copy span {
+        display: none;
+      }
+
+      .brand {
+        min-width: auto;
+      }
+
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        padding: 9px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <!-- =========================
+         TOPBAR
+    ========================== -->
+    <header class="topbar">
+      <a href="dashboard.html" class="brand" aria-label="ORANGE-Q AI dashboard">
+        <div class="brand-mark">OQ</div>
+
+        <div class="brand-copy">
+          <strong>ORANGE-Q AI</strong>
+          <span>Planting Material Quality Intelligence</span>
+        </div>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="user-chip">
+          <div class="avatar" id="userAvatar">DU</div>
+
+          <div class="user-info">
+            <strong id="userName">Demo User</strong>
+            <span>Nursery Quality Operator</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="dashboard.html">Dashboard</a>
+        <span>›</span>
+        <a href="analytics.html">Analytics</a>
+        <span>›</span>
+        <span class="current">Report</span>
+      </nav>
+
+      <!-- =========================
+           REPORT HERO
+      ========================== -->
+      <section class="report-hero">
+
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Quality Assessment Report
+          </div>
+
+          <h1 class="hero-title">
+            Orange Planting Material Report
+          </h1>
+
+          <p class="hero-subtitle">
+            A consolidated ORANGE-Q AI screening report covering plant
+            quality indicators, batch performance, prototype AI screening,
+            and human-verification status.
+          </p>
+        </div>
+
+        <div class="report-id-card">
+          <div class="report-id-label">Report reference</div>
+          <div class="report-id" id="reportId">ORQ-REPORT</div>
+          <div class="report-date" id="reportDate">
+            Generated on —
+          </div>
+        </div>
+
+      </section>
+
+      <!-- =========================
+           ACTION BAR
+      ========================== -->
+      <section class="action-bar no-print">
+
+        <div class="action-left">
+          <a href="dashboard.html" class="btn btn-secondary">
+            ← Dashboard
+          </a>
+
+          <a href="analytics.html" class="btn btn-secondary">
+            Analytics
+          </a>
+
+          <a href="batches.html" class="btn btn-secondary">
+            Batches
+          </a>
+
+          <a href="plants.html" class="btn btn-secondary">
+            Plants
+          </a>
+        </div>
+
+        <div class="action-right">
+          <button class="btn btn-secondary" id="refreshBtn">
+            ↻ Refresh
+          </button>
+
+          <button class="btn btn-green" id="exportCsvBtn">
+            ⇩ Export CSV
+          </button>
+
+          <button class="btn btn-primary" id="printBtn">
+            Print / Save PDF
+          </button>
+        </div>
+
+      </section>
+
+      <!-- =========================
+           FILTERS
+      ========================== -->
+      <section class="filters no-print">
+
+        <div class="field">
+          <label for="batchFilter">Batch</label>
+
+          <select id="batchFilter">
+            <option value="all">All batches</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="resultFilter">Screening result</label>
+
+          <select id="resultFilter">
+            <option value="all">All results</option>
+            <option value="Suitable">Suitable</option>
+            <option value="Needs review">Needs review</option>
+            <option value="Reject">Reject</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="verificationFilter">Verification</label>
+
+          <select id="verificationFilter">
+            <option value="all">All verification states</option>
+            <option value="Pending human review">Pending human review</option>
+            <option value="Verified suitable">Verified suitable</option>
+            <option value="Verified reject">Verified reject</option>
+            <option value="Needs further review">Needs further review</option>
+            <option value="Not requested">Not requested</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="searchFilter">Search</label>
+
+          <input
+            type="search"
+            id="searchFilter"
+            placeholder="Plant ID, batch, variety..."
+          />
+        </div>
+
+        <div class="filter-button-wrap">
+          <button class="btn btn-secondary" id="clearFiltersBtn">
+            Clear
+          </button>
+        </div>
+
+      </section>
+
+      <!-- =========================
+           KPI SECTION
+      ========================== -->
+      <section>
+        <div class="section-heading">
+          <div>
+            <h2>Screening summary</h2>
+            <p>Calculated from the available ORANGE-Q AI prototype records.</p>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+
+          <article class="kpi">
+            <div class="kpi-label">Plants screened</div>
+            <div class="kpi-value" id="kpiScreened">0</div>
+            <div class="kpi-note">Digital screening records</div>
+          </article>
+
+          <article class="kpi green">
+            <div class="kpi-label">Suitable</div>
+            <div class="kpi-value" id="kpiSuitable">0%</div>
+            <div class="kpi-note" id="kpiSuitableCount">0 plants</div>
+          </article>
+
+          <article class="kpi orange">
+            <div class="kpi-label">Needs review</div>
+            <div class="kpi-value" id="kpiReview">0%</div>
+            <div class="kpi-note" id="kpiReviewCount">0 plants</div>
+          </article>
+
+          <article class="kpi red">
+            <div class="kpi-label">Reject</div>
+            <div class="kpi-value" id="kpiReject">0%</div>
+            <div class="kpi-note" id="kpiRejectCount">0 plants</div>
+          </article>
+
+          <article class="kpi green">
+            <div class="kpi-label">Avg quality</div>
+            <div class="kpi-value" id="kpiQuality">0</div>
+            <div class="kpi-note">Prototype quality score / 100</div>
+          </article>
+
+          <article class="kpi">
+            <div class="kpi-label">Avg confidence</div>
+            <div class="kpi-value" id="kpiConfidence">0%</div>
+            <div class="kpi-note">Prototype screening confidence</div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- =========================
+           MAIN ANALYTICS GRID
+      ========================== -->
+      <section class="main-grid">
+
+        <!-- Distribution -->
+        <article class="card">
+
+          <div class="card-header">
+            <div>
+              <h3>Quality distribution</h3>
+              <p>Screening classification across the selected records.</p>
+            </div>
+          </div>
+
+          <div class="card-body">
+
+            <div class="distribution-layout">
+
+              <div class="donut-wrap">
+                <div
+                  class="donut"
+                  id="qualityDonut"
+                  style="
+                    --suitable-angle: 0deg;
+                    --review-angle: 0deg;
+                  "
+                ></div>
+
+                <div class="donut-center">
+                  <strong id="donutTotal">0</strong>
+                  <span>Plants</span>
+                </div>
+              </div>
+
+              <div class="legend">
+
+                <div class="legend-item">
+                  <span
+                    class="legend-dot"
+                    style="background: var(--green);"
+                  ></span>
+
+                  <span class="legend-label">
+                    Suitable
+                  </span>
+
+                  <strong class="legend-count" id="legendSuitable">
+                    0
+                  </strong>
+
+                  <span
+                    class="legend-percent"
+                    id="legendSuitablePercent"
+                  >
+                    0%
+                  </span>
+                </div>
+
+                <div class="legend-item">
+                  <span
+                    class="legend-dot"
+                    style="background: var(--orange);"
+                  ></span>
+
+                  <span class="legend-label">
+                    Needs review
+                  </span>
+
+                  <strong class="legend-count" id="legendReview">
+                    0
+                  </strong>
+
+                  <span
+                    class="legend-percent"
+                    id="legendReviewPercent"
+                  >
+                    0%
+                  </span>
+                </div>
+
+                <div class="legend-item">
+                  <span
+                    class="legend-dot"
+                    style="background: var(--red);"
+                  ></span>
+
+                  <span class="legend-label">
+                    Reject
+                  </span>
+
+                  <strong class="legend-count" id="legendReject">
+                    0
+                  </strong>
+
+                  <span
+                    class="legend-percent"
+                    id="legendRejectPercent"
+                  >
+                    0%
+                  </span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+        <!-- Current assessment -->
+        <article class="card">
+
+          <div class="card-header">
+            <div>
+              <h3>Current assessment</h3>
+              <p>Most recent assessment stored in this prototype.</p>
+            </div>
+          </div>
+
+          <div class="card-body" id="currentAssessmentCard">
+            <!-- JS populated -->
+          </div>
+
+        </article>
+
+      </section>
+
+      <!-- =========================
+           BATCH PERFORMANCE
+      ========================== -->
+      <section>
+
+        <div class="section-heading">
+          <div>
+            <h2>Batch performance</h2>
+            <p>Quality and screening performance by nursery batch.</p>
+          </div>
+        </div>
+
+        <article class="card">
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Batch</th>
+                  <th>Variety</th>
+                  <th>Screened</th>
+                  <th>Suitable</th>
+                  <th>Review</th>
+                  <th>Reject</th>
+                  <th>Quality</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody id="batchTableBody">
+                <!-- JS populated -->
+              </tbody>
+            </table>
+          </div>
+
+        </article>
+
+      </section>
+
+      <!-- =========================
+           LOWER GRID
+      ========================== -->
+      <section class="main-grid">
+
+        <!-- Top batches -->
+        <article class="card">
+
+          <div class="card-header">
+            <div>
+              <h3>Batch quality comparison</h3>
+              <p>Relative quality score for available batches.</p>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="bar-list" id="batchQualityBars">
+              <!-- JS populated -->
+            </div>
+          </div>
+
+        </article>
+
+        <!-- Verification -->
+        <article class="card">
+
+          <div class="card-header">
+            <div>
+              <h3>Human verification</h3>
+              <p>Review status for uncertain or escalated records.</p>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="verification-card">
+
+              <div class="metric-grid">
+
+                <div class="metric-box">
+                  <span>Pending review</span>
+                  <strong id="verificationPending">0</strong>
+                </div>
+
+                <div class="metric-box">
+                  <span>Verified suitable</span>
+                  <strong id="verificationSuitable">0</strong>
+                </div>
+
+                <div class="metric-box">
+                  <span>Verified reject</span>
+                  <strong id="verificationReject">0</strong>
+                </div>
+
+                <div class="metric-box">
+                  <span>Further review</span>
+                  <strong id="verificationFurther">0</strong>
+                </div>
+
+              </div>
+
+              <div
+                class="verification-status-box"
+                id="verificationSummaryBox"
+              >
+                <strong id="verificationSummaryTitle">
+                  Human verification available
+                </strong>
+
+                <span id="verificationSummaryText">
+                  Uncertain cases should be reviewed by a trained operator.
+                </span>
+              </div>
+
+              <a
+                href="human-verification.html"
+                class="btn btn-secondary"
+              >
+                Open Verification Queue →
+              </a>
+
+            </div>
+          </div>
+
+        </article>
+
+      </section>
+
+      <!-- =========================
+           CAPTURE CONDITIONS
+      ========================== -->
+      <section>
+
+        <div class="section-heading">
+          <div>
+            <h2>Capture & screening conditions</h2>
+            <p>
+              Helps evaluate whether screening is being performed consistently.
+            </p>
+          </div>
+        </div>
+
+        <article class="card">
+
+          <div class="card-body">
+
+            <div class="metric-grid">
+
+              <div class="metric-box">
+                <span>Good lighting</span>
+                <strong id="conditionGood">0</strong>
+              </div>
+
+              <div class="metric-box">
+                <span>Variable lighting</span>
+                <strong id="conditionVariable">0</strong>
+              </div>
+
+              <div class="metric-box">
+                <span>Low lighting</span>
+                <strong id="conditionLow">0</strong>
+              </div>
+
+              <div class="metric-box">
+                <span>Other / unknown</span>
+                <strong id="conditionOther">0</strong>
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      </section>
+
+      <!-- =========================
+           INDICATORS
+      ========================== -->
+      <section>
+
+        <div class="section-heading">
+          <div>
+            <h2>Visual quality indicators</h2>
+            <p>
+              Indicators used by the prototype screening workflow.
+            </p>
+          </div>
+        </div>
+
+        <article class="card">
+
+          <div class="card-body">
+
+            <div class="metric-grid">
+
+              <div class="metric-box">
+                <span>Leaf appearance</span>
+                <strong id="indicatorLeaf">—</strong>
+              </div>
+
+              <div class="metric-box">
+                <span>Canopy vigour</span>
+                <strong id="indicatorCanopy">—</strong>
+              </div>
+
+              <div class="metric-box">
+                <span>Stem structure</span>
+                <strong id="indicatorStem">—</strong>
+              </div>
+
+              <div class="metric-box">
+                <span>Visible stress</span>
+                <strong id="indicatorStress">—</strong>
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      </section>
+
+      <!-- =========================
+           LIMITATIONS
+      ========================== -->
+      <section class="notice">
+
+        <div class="notice-title">
+          <span>!</span>
+          Prototype and validation notice
+        </div>
+
+        <p>
+          ORANGE-Q AI is currently a prototype demonstration. The screening
+          classifications, confidence values and quality scores shown in this
+          report are not laboratory diagnoses and should not be interpreted as
+          scientifically validated disease detection. Visual screening cannot
+          by itself establish genetic true-to-type status. True-to-type
+          verification may require additional sensing, reference material,
+          molecular testing or other validated methods. Uncertain cases should
+          be escalated to trained human verification. Final deployment should
+          be validated using locally relevant nursery datasets, multiple
+          lighting conditions, independent field validation and measured
+          outcomes such as post-transplant survival.
+        </p>
+
+      </section>
+
+      <!-- =========================
+           FOOTER
+      ========================== -->
+      <footer class="footer">
+
+        <div>
+          <strong>ORANGE-Q AI</strong>
+          · AI-assisted orange planting material quality assessment
+        </div>
+
+        <div>
+          Prototype report · <span id="footerDate">—</span>
+        </div>
+
+      </footer>
+
+    </main>
+  </div>
+
+  <div class="toast" id="toast">
+    Report updated.
+  </div>
+
+  <script>
+    /* ============================================================
+       ORANGE-Q AI
+       REPORT MODULE
+       ============================================================ */
+
+    "use strict";
+
+    /* ============================================================
+       STORAGE KEYS
+       ============================================================ */
+
+    const CURRENT_USER_KEY = "orq_current_user";
+    const ASSESSMENT_KEY = "orq_current_assessment";
+    const BATCHES_KEY = "orq_batches";
+    const PLANTS_KEY = "orq_plants";
+    const SELECTED_BATCH_KEY = "orq_selected_batch_id";
+
+    /* ============================================================
+       DEMO BATCH DATA
+       Matches the existing batches.html data structure.
+       ============================================================ */
+
+    const DEFAULT_BATCHES = [
+      {
+        batchId: "ORQ-BATCH-001",
+        variety: "Nagpur Mandarin",
+        source: "Certified Nursery",
+        plantCount: 120,
+        screenedCount: 108,
+        suitableCount: 92,
+        reviewCount: 11,
+        rejectedCount: 5,
+        qualityScore: 85,
+        status: "Active",
+        createdAt: "2026-09-10T08:30:00.000Z",
+        lastUpdated: "2026-10-02T09:10:00.000Z"
+      },
+      {
+        batchId: "ORQ-BATCH-002",
+        variety: "Mosambi",
+        source: "Regional Nursery Centre",
+        plantCount: 95,
+        screenedCount: 95,
+        suitableCount: 79,
+        reviewCount: 8,
+        rejectedCount: 8,
+        qualityScore: 83,
+        status: "Completed",
+        createdAt: "2026-09-06T07:45:00.000Z",
+        lastUpdated: "2026-09-29T14:20:00.000Z"
+      },
+      {
+        batchId: "ORQ-BATCH-003",
+        variety: "Valencia",
+        source: "Demonstration Nursery",
+        plantCount: 150,
+        screenedCount: 84,
+        suitableCount: 64,
+        reviewCount: 15,
+        rejectedCount: 5,
+        qualityScore: 76,
+        status: "Review required",
+        createdAt: "2026-09-18T10:20:00.000Z",
+        lastUpdated: "2026-10-03T11:40:00.000Z"
+      },
+      {
+        batchId: "ORQ-BATCH-004",
+        variety: "Kinnow",
+        source: "Research Nursery",
+        plantCount: 80,
+        screenedCount: 52,
+        suitableCount: 38,
+        reviewCount: 7,
+        rejectedCount: 7,
+        qualityScore: 73,
+        status: "Attention",
+        createdAt: "2026-09-22T06:40:00.000Z",
+        lastUpdated: "2026-10-01T13:15:00.000Z"
+      }
+    ];
+
+    /* ============================================================
+       STATE
+       ============================================================ */
+
+    let state = {
+      user: null,
+      assessment: null,
+      batches: [],
+      plants: [],
+      filteredPlants: [],
+      filters: {
+        batch: "all",
+        result: "all",
+        verification: "all",
+        search: ""
+      }
+    };
+
+    /* ============================================================
+       SAFE STORAGE
+       ============================================================ */
+
+    function readStorage(key, fallback) {
+      try {
+        const value = localStorage.getItem(key);
+
+        if (!value) {
+          return fallback;
+        }
+
+        return JSON.parse(value);
+      } catch (error) {
+        console.warn("ORANGE-Q storage read error:", key, error);
+        return fallback;
+      }
+    }
+
+    function writeStorage(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+      } catch (error) {
+        console.warn("ORANGE-Q storage write error:", key, error);
+        return false;
+      }
+    }
+
+    /* ============================================================
+       HELPERS
+       ============================================================ */
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function number(value, fallback = 0) {
+      const parsed = Number(value);
+
+      return Number.isFinite(parsed) ? parsed : fallback;
+    }
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    function percent(part, total) {
+      if (!total) {
+        return 0;
+      }
+
+      return Math.round((part / total) * 100);
+    }
+
+    function average(values) {
+      const valid = values
+        .map(Number)
+        .filter(value => Number.isFinite(value));
+
+      if (!valid.length) {
+        return 0;
+      }
+
+      return Math.round(
+        valid.reduce((sum, value) => sum + value, 0) / valid.length
+      );
+    }
+
+    function formatDate(value) {
+      if (!value) {
+        return "—";
+      }
+
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return "—";
+      }
+
+      return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+      });
+    }
+
+    function formatDateTime(value) {
+      if (!value) {
+        return "—";
+      }
+
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return "—";
+      }
+
+      return date.toLocaleString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function initials(name) {
+      const safeName = String(name || "Demo User").trim();
+
+      const parts = safeName
+        .split(/\s+/)
+        .filter(Boolean);
+
+      if (!parts.length) {
+        return "DU";
+      }
+
+      if (parts.length === 1) {
+        return parts[0].slice(0, 2).toUpperCase();
+      }
+
+      return (
+        parts[0].charAt(0) +
+        parts[parts.length - 1].charAt(0)
+      ).toUpperCase();
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+
+      if (!toast) {
+        return;
+      }
+
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      window.clearTimeout(showToast.timer);
+
+      showToast.timer = window.setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2400);
+    }
+
+    /* ============================================================
+       STATUS HELPERS
+       ============================================================ */
+
+    function statusClass(status) {
+      const value = String(status || "").toLowerCase();
+
+      if (
+        value.includes("suitable") ||
+        value.includes("active") ||
+        value.includes("completed")
+      ) {
+        return "status-green";
+      }
+
+      if (
+        value.includes("review") ||
+        value.includes("attention") ||
+        value.includes("pending")
+      ) {
+        return "status-orange";
+      }
+
+      if (
+        value.includes("reject") ||
+        value.includes("poor")
+      ) {
+        return "status-red";
+      }
+
+      return "status-blue";
+    }
+
+    function normalizeClassification(plant) {
+      const raw =
+        plant.classification ||
+        plant.result ||
+        plant.screeningResult ||
+        plant.screeningStatus ||
+        plant.status ||
+        "";
+
+      const value = String(raw).trim().toLowerCase();
+
+      if (
+        value === "suitable" ||
+        value.includes("suitable")
+      ) {
+        return "Suitable";
+      }
+
+      if (
+        value.includes("review") ||
+        value.includes("questionable") ||
+        value.includes("pending")
+      ) {
+        return "Needs review";
+      }
+
+      if (
+        value === "reject" ||
+        value.includes("reject")
+      ) {
+        return "Reject";
+      }
+
+      return "";
+    }
+
+    function normalizeVerification(plant) {
+      const raw =
+        plant.verificationStatus ||
+        plant.humanVerificationStatus ||
+        "";
+
+      const value = String(raw).trim().toLowerCase();
+
+      if (value.includes("pending")) {
+        return "Pending human review";
+      }
+
+      if (
+        value.includes("verified suitable") ||
+        value.includes("suitable")
+      ) {
+        return "Verified suitable";
+      }
+
+      if (
+        value.includes("verified reject") ||
+        value.includes("reject")
+      ) {
+        return "Verified reject";
+      }
+
+      if (
+        value.includes("further") ||
+        value.includes("additional")
+      ) {
+        return "Needs further review";
+      }
+
+      return "Not requested";
+    }
+
+    /* ============================================================
+       DEMO PLANT GENERATION
+       Used only when orq_plants does not yet exist.
+       ============================================================ */
+
+    function createDemoPlantsFromBatches(batches) {
+      const generated = [];
+
+      batches.forEach((batch, batchIndex) => {
+        const screened = number(batch.screenedCount);
+
+        if (!screened) {
+          return;
+        }
+
+        const suitable = number(batch.suitableCount);
+        const review = number(batch.reviewCount);
+        const rejected = number(batch.rejectedCount);
+
+        let counter = 0;
+
+        for (let i = 0; i < suitable; i++) {
+          counter++;
+
+          generated.push({
+            plantId:
+              batch.batchId +
+              "-P" +
+              String(counter).padStart(3, "0"),
+
+            batchId: batch.batchId,
+            variety: batch.variety,
+            source: batch.source,
+            assessmentId:
+              "DEMO-" +
+              batchIndex +
+              "-" +
+              counter,
+
+            classification: "Suitable",
+
+            confidence: clamp(
+              number(batch.qualityScore, 85) +
+                ((counter % 7) - 3),
+              72,
+              96
+            ),
+
+            qualityScore: clamp(
+              number(batch.qualityScore, 85) +
+                ((counter % 9) - 4),
+              65,
+              96
+            ),
+
+            verificationStatus:
+              counter % 12 === 0
+                ? "Pending human review"
+                : "Not requested",
+
+            imageCaptured: true,
+
+            assessedAt:
+              batch.lastUpdated ||
+              batch.createdAt,
+
+            captureCondition:
+              counter % 10 === 0
+                ? "Variable lighting"
+                : "Good lighting",
+
+            indicators: {
+              leafAppearance: "Good",
+              canopyVigour: "Good",
+              stemStructure: "Good",
+              visibleStress: "Low"
+            },
+
+            demo: true
+          });
+        }
+
+        for (let i = 0; i < review; i++) {
+          counter++;
+
+          generated.push({
+            plantId:
+              batch.batchId +
+              "-P" +
+              String(counter).padStart(3, "0"),
+
+            batchId: batch.batchId,
+            variety: batch.variety,
+            source: batch.source,
+
+            assessmentId:
+              "DEMO-" +
+              batchIndex +
+              "-" +
+              counter,
+
+            classification: "Needs review",
+
+            confidence: clamp(
+              number(batch.qualityScore, 80) -
+                12 +
+                ((counter % 5) - 2),
+              51,
+              79
+            ),
+
+            qualityScore: clamp(
+              number(batch.qualityScore, 80) -
+                13 +
+                ((counter % 7) - 3),
+              48,
+              78
+            ),
+
+            verificationStatus:
+              "Pending human review",
+
+            imageCaptured: true,
+
+            assessedAt:
+              batch.lastUpdated ||
+              batch.createdAt,
+
+            captureCondition:
+              counter % 3 === 0
+                ? "Low lighting"
+                : "Variable lighting",
+
+            indicators: {
+              leafAppearance: "Variable",
+              canopyVigour: "Moderate",
+              stemStructure: "Review",
+              visibleStress: "Moderate"
+            },
+
+            demo: true
+          });
+        }
+
+        for (let i = 0; i < rejected; i++) {
+          counter++;
+
+          generated.push({
+            plantId:
+              batch.batchId +
+              "-P" +
+              String(counter).padStart(3, "0"),
+
+            batchId: batch.batchId,
+            variety: batch.variety,
+            source: batch.source,
+
+            assessmentId:
+              "DEMO-" +
+              batchIndex +
+              "-" +
+              counter,
+
+            classification: "Reject",
+
+            confidence: clamp(
+              number(batch.qualityScore, 75) -
+                7 +
+                ((counter % 6) - 2),
+              55,
+              84
+            ),
+
+            qualityScore: clamp(
+              number(batch.qualityScore, 75) -
+                21 +
+                ((counter % 8) - 3),
+              35,
+              67
+            ),
+
+            verificationStatus:
+              counter % 2 === 0
+                ? "Verified reject"
+                : "Not requested",
+
+            imageCaptured: true,
+
+            assessedAt:
+              batch.lastUpdated ||
+              batch.createdAt,
+
+            captureCondition:
+              counter % 2 === 0
+                ? "Variable lighting"
+                : "Good lighting",
+
+            indicators: {
+              leafAppearance: "Concern",
+              canopyVigour: "Low",
+              stemStructure: "Concern",
+              visibleStress: "High"
+            },
+
+            demo: true
+          });
+        }
+      });
+
+      return generated;
+    }
+
+    /* ============================================================
+       LOAD DATA
+       ============================================================ */
+
+    function loadData() {
+      state.user = readStorage(
+        CURRENT_USER_KEY,
+        {
+          name: "Demo User",
+          email: "demo@orangeq.ai"
+        }
+      );
+
+      state.assessment = readStorage(
+        ASSESSMENT_KEY,
+        null
+      );
+
+      let storedBatches = readStorage(
+        BATCHES_KEY,
+        null
+      );
+
+      if (!Array.isArray(storedBatches) || !storedBatches.length) {
+        storedBatches = DEFAULT_BATCHES.map(batch => ({
+          ...batch
+        }));
+
+        writeStorage(
+          BATCHES_KEY,
+          storedBatches
+        );
+      }
+
+      state.batches = storedBatches;
+
+      const storedPlants = readStorage(
+        PLANTS_KEY,
+        null
+      );
+
+      if (Array.isArray(storedPlants) && storedPlants.length) {
+        state.plants = storedPlants;
+      } else {
+        state.plants = createDemoPlantsFromBatches(
+          state.batches
+        );
+      }
+
+      integrateCurrentAssessment();
+
+      populateBatchFilter();
+
+      applyFilters();
+
+      renderUser();
+
+      renderCurrentAssessment();
+
+      renderReportIdentity();
+
+      renderAll();
+
+      renderIndicators();
+
+      renderCaptureConditions();
+    }
+
+    /* ============================================================
+       CURRENT ASSESSMENT INTEGRATION
+       ============================================================ */
+
+    function integrateCurrentAssessment() {
+      if (!state.assessment) {
+        return;
+      }
+
+      const assessment = state.assessment;
+
+      const prototypeResult =
+        assessment.prototypeResult || {};
+
+      const classification =
+        prototypeResult.classification ||
+        assessment.classification ||
+        "";
+
+      const confidence = number(
+        prototypeResult.confidence ||
+        assessment.confidence,
+        0
+      );
+
+      const qualityScore = number(
+        prototypeResult.qualityScore ||
+        assessment.qualityScore,
+        0
+      );
+
+      /*
+       * If a current assessment exists but does not already appear
+       * in the plant records, include it as a current record.
+       */
+
+      const assessmentId =
+        assessment.assessmentId ||
+        "";
+
+      const alreadyExists = state.plants.some(
+        plant =>
+          String(plant.assessmentId || "") ===
+          String(assessmentId)
+      );
+
+      if (
+        assessmentId &&
+        !alreadyExists &&
+        classification
+      ) {
+        const currentPlant = {
+          plantId:
+            assessment.plantId ||
+            assessmentId,
+
+          batchId:
+            assessment.batchId ||
+            "Unassigned",
+
+          variety:
+            assessment.variety ||
+            "Unknown",
+
+          source:
+            assessment.source ||
+            "Unknown",
+
+          assessmentId,
+
+          classification,
+
+          confidence:
+            confidence || 87,
+
+          qualityScore:
+            qualityScore || 87,
+
+          verificationStatus:
+            assessment.verificationStatus ||
+            (
+              assessment.humanVerification
+                ? "Pending human review"
+                : "Not requested"
+            ),
+
+          imageCaptured:
+            Boolean(
+              assessment.imageCaptured ||
+              assessment.imageData
+            ),
+
+          assessedAt:
+            assessment.createdAt ||
+            new Date().toISOString(),
+
+          captureCondition:
+            assessment.captureCondition ||
+            "Unknown",
+
+          indicators:
+            prototypeResult.indicators ||
+            assessment.indicators ||
+            {
+              leafAppearance: "Good",
+              canopyVigour: "Good",
+              stemStructure: "Good",
+              visibleStress: "Low"
+            },
+
+          demo: false
+        };
+
+        state.plants.push(currentPlant);
+      }
+    }
+
+    /* ============================================================
+       USER
+       ============================================================ */
+
+    function renderUser() {
+      const name =
+        state.user &&
+        state.user.name
+          ? state.user.name
+          : "Demo User";
+
+      document.getElementById(
+        "userName"
+      ).textContent = name;
+
+      document.getElementById(
+        "userAvatar"
+      ).textContent = initials(name);
+    }
+
+    /* ============================================================
+       REPORT IDENTITY
+       ============================================================ */
+
+    function renderReportIdentity() {
+      const assessment =
+        state.assessment;
+
+      let reportId =
+        "ORQ-REPORT-" +
+        new Date()
+          .toISOString()
+          .slice(0, 10)
+          .replace(/-/g, "");
+
+      if (assessment && assessment.assessmentId) {
+        reportId =
+          "ORQ-REPORT-" +
+          assessment.assessmentId;
+      }
+
+      const now = new Date();
+
+      document.getElementById(
+        "reportId"
+      ).textContent = reportId;
+
+      document.getElementById(
+        "reportDate"
+      ).textContent =
+        "Generated on " +
+        formatDateTime(now);
+
+      document.getElementById(
+        "footerDate"
+      ).textContent =
+        formatDateTime(now);
+    }
+
+    /* ============================================================
+       BATCH FILTER
+       ============================================================ */
+
+    function populateBatchFilter() {
+      const select =
+        document.getElementById(
+          "batchFilter"
+        );
+
+      if (!select) {
+        return;
+      }
+
+      const currentValue =
+        select.value || "all";
+
+      select.innerHTML =
+        '<option value="all">All batches</option>';
+
+      state.batches.forEach(batch => {
+        const option =
+          document.createElement("option");
+
+        option.value =
+          batch.batchId;
+
+        option.textContent =
+          batch.batchId +
+          " · " +
+          batch.variety;
+
+        select.appendChild(option);
+      });
+
+      if (
+        [...select.options].some(
+          option =>
+            option.value === currentValue
+        )
+      ) {
+        select.value = currentValue;
+      }
+    }
+
+    /* ============================================================
+       FILTERING
+       ============================================================ */
+
+    function applyFilters() {
+      const filters =
+        state.filters;
+
+      state.filteredPlants =
+        state.plants.filter(plant => {
+
+          const classification =
+            normalizeClassification(plant);
+
+          const verification =
+            normalizeVerification(plant);
+
+          if (
+            filters.batch !== "all" &&
+            String(plant.batchId || "") !==
+              String(filters.batch)
+          ) {
+            return false;
+          }
+
+          if (
+            filters.result !== "all" &&
+            classification !==
+              filters.result
+          ) {
+            return false;
+          }
+
+          if (
+            filters.verification !== "all" &&
+            verification !==
+              filters.verification
+          ) {
+            return false;
+          }
+
+          const search =
+            filters.search
+              .trim()
+              .toLowerCase();
+
+          if (search) {
+            const haystack = [
+              plant.plantId,
+              plant.batchId,
+              plant.variety,
+              plant.source,
+              plant.assessmentId,
+              classification,
+              verification
+            ]
+              .join(" ")
+              .toLowerCase();
+
+            if (!haystack.includes(search)) {
+              return false;
+            }
+          }
+
+          return true;
+        });
+
+      renderAll();
+      renderIndicators();
+      renderCaptureConditions();
+    }
+
+    /* ============================================================
+       AGGREGATE
+       ============================================================ */
+
+    function getSummary() {
+      const plants =
+        state.filteredPlants;
+
+      const suitable =
+        plants.filter(
+          plant =>
+            normalizeClassification(plant) ===
+            "Suitable"
+        );
+
+      const review =
+        plants.filter(
+          plant =>
+            normalizeClassification(plant) ===
+            "Needs review"
+        );
+
+      const rejected =
+        plants.filter(
+          plant =>
+            normalizeClassification(plant) ===
+            "Reject"
+        );
+
+      const qualityScores =
+        plants
+          .map(plant =>
+            number(
+              plant.qualityScore,
+              0
+            )
+          )
+          .filter(score => score > 0);
+
+      const confidences =
+        plants
+          .map(plant =>
+            number(
+              plant.confidence,
+              0
+            )
+          )
+          .filter(score => score > 0);
+
+      return {
+        total: plants.length,
+        suitable: suitable.length,
+        review: review.length,
+        rejected: rejected.length,
+        suitablePercent:
+          percent(
+            suitable.length,
+            plants.length
+          ),
+        reviewPercent:
+          percent(
+            review.length,
+            plants.length
+          ),
+        rejectedPercent:
+          percent(
+            rejected.length,
+            plants.length
+          ),
+        averageQuality:
+          average(qualityScores),
+        averageConfidence:
+          average(confidences)
+      };
+    }
+
+    /* ============================================================
+       RENDER ALL
+       ============================================================ */
+
+    function renderAll() {
+      const summary =
+        getSummary();
+
+      renderKpis(summary);
+      renderDonut(summary);
+      renderBatchTable();
+      renderBatchBars();
+      renderVerification();
+    }
+
+    /* ============================================================
+       KPI
+       ============================================================ */
+
+    function renderKpis(summary) {
+      document.getElementById(
+        "kpiScreened"
+      ).textContent =
+        summary.total;
+
+      document.getElementById(
+        "kpiSuitable"
+      ).textContent =
+        summary.suitablePercent + "%";
+
+      document.getElementById(
+        "kpiReview"
+      ).textContent =
+        summary.reviewPercent + "%";
+
+      document.getElementById(
+        "kpiReject"
+      ).textContent =
+        summary.rejectedPercent + "%";
+
+      document.getElementById(
+        "kpiQuality"
+      ).textContent =
+        summary.averageQuality || "—";
+
+      document.getElementById(
+        "kpiConfidence"
+      ).textContent =
+        summary.averageConfidence
+          ? summary.averageConfidence + "%"
+          : "—";
+
+      document.getElementById(
+        "kpiSuitableCount"
+      ).textContent =
+        summary.suitable +
+        " plants";
+
+      document.getElementById(
+        "kpiReviewCount"
+      ).textContent =
+        summary.review +
+        " plants";
+
+      document.getElementById(
+        "kpiRejectCount"
+      ).textContent =
+        summary.rejected +
+        " plants";
+    }
+
+    /* ============================================================
+       DONUT
+       ============================================================ */
+
+    function renderDonut(summary) {
+      const suitableAngle =
+        (summary.suitablePercent / 100) *
+        360;
+
+      const reviewAngle =
+        (summary.reviewPercent / 100) *
+        360;
+
+      const donut =
+        document.getElementById(
+          "qualityDonut"
+        );
+
+      donut.style.setProperty(
+        "--suitable-angle",
+        suitableAngle + "deg"
+      );
+
+      donut.style.setProperty(
+        "--review-angle",
+        reviewAngle + "deg"
+      );
+
+      document.getElementById(
+        "donutTotal"
+      ).textContent =
+        summary.total;
+
+      document.getElementById(
+        "legendSuitable"
+      ).textContent =
+        summary.suitable;
+
+      document.getElementById(
+        "legendReview"
+      ).textContent =
+        summary.review;
+
+      document.getElementById(
+        "legendReject"
+      ).textContent =
+        summary.rejected;
+
+      document.getElementById(
+        "legendSuitablePercent"
+      ).textContent =
+        summary.suitablePercent +
+        "% of screened plants";
+
+      document.getElementById(
+        "legendReviewPercent"
+      ).textContent =
+        summary.reviewPercent +
+        "% of screened plants";
+
+      document.getElementById(
+        "legendRejectPercent"
+      ).textContent =
+        summary.rejectedPercent +
+        "% of screened plants";
+    }
+
+    /* ============================================================
+       CURRENT ASSESSMENT
+       ============================================================ */
+
+    function renderCurrentAssessment() {
+      const container =
+        document.getElementById(
+          "currentAssessmentCard"
+        );
+
+      const assessment =
+        state.assessment;
+
+      if (!assessment) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">OQ</div>
+            <strong>No current assessment</strong>
+            <p>
+              Start a new assessment to populate the
+              current assessment section.
+            </p>
+          </div>
+        `;
+
+        return;
+      }
+
+      const prototypeResult =
+        assessment.prototypeResult ||
+        {};
+
+      const classification =
+        prototypeResult.classification ||
+        assessment.classification ||
+        "Prototype result pending";
+
+      const confidence =
+        number(
+          prototypeResult.confidence ||
+          assessment.confidence,
+          0
+        );
+
+      const quality =
+        number(
+          prototypeResult.qualityScore ||
+          assessment.qualityScore,
+          0
+        );
+
+      const verification =
+        assessment.verificationStatus ||
+        (
+          assessment.humanVerification
+            ? "Pending human review"
+            : "Not requested"
+        );
+
+      const verificationClass =
+        statusClass(verification);
+
+      container.innerHTML = `
+        <div class="assessment-banner">
+          <strong>
+            ${escapeHtml(
+              assessment.assessmentId ||
+              "Assessment"
+            )}
+          </strong>
+
+          <span>
+            Created
+            ${escapeHtml(
+              formatDateTime(
+                assessment.createdAt
+              )
+            )}
+          </span>
+        </div>
+
+        <div class="detail-list">
+
+          <div class="detail-row">
+            <div class="detail-label">Plant ID</div>
+            <div class="detail-value">
+              ${escapeHtml(
+                assessment.plantId || "—"
+              )}
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-label">Batch</div>
+            <div class="detail-value">
+              ${escapeHtml(
+                assessment.batchId || "—"
+              )}
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-label">Variety</div>
+            <div class="detail-value">
+              ${escapeHtml(
+                assessment.variety || "—"
+              )}
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-label">Source</div>
+            <div class="detail-value">
+              ${escapeHtml(
+                assessment.source || "—"
+              )}
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-label">Screening result</div>
+            <div class="detail-value">
+              <span class="status ${statusClass(classification)}">
+                ${escapeHtml(classification)}
+              </span>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-label">Quality score</div>
+            <div class="detail-value">
+              ${
+                quality
+                  ? quality + " / 100"
+                  : "—"
+              }
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-label">Confidence</div>
+            <div class="detail-value">
+              ${
+                confidence
+                  ? confidence + "%"
+                  : "—"
+              }
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-label">Verification</div>
+            <div class="detail-value">
+              <span class="status ${verificationClass}">
+                ${escapeHtml(verification)}
+              </span>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-label">Image captured</div>
+            <div class="detail-value">
+              ${
+                assessment.imageCaptured ||
+                assessment.imageData
+                  ? "Yes"
+                  : "Not recorded"
+              }
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    /* ============================================================
+       BATCH AGGREGATION
+       ============================================================ */
+
+    function getBatchStats() {
+      const stats = {};
+
+      state.filteredPlants.forEach(plant => {
+        const batchId =
+          plant.batchId ||
+          "Unassigned";
+
+        if (!stats[batchId]) {
+          stats[batchId] = {
+            batchId,
+            variety:
+              plant.variety ||
+              "Unknown",
+
+            screened: 0,
+            suitable: 0,
+            review: 0,
+            rejected: 0,
+            qualityScores: [],
+            confidenceScores: []
+          };
+        }
+
+        const item =
+          stats[batchId];
+
+        item.screened++;
+
+        const classification =
+          normalizeClassification(plant);
+
+        if (classification === "Suitable") {
+          item.suitable++;
+        }
+
+        if (classification === "Needs review") {
+          item.review++;
+        }
+
+        if (classification === "Reject") {
+          item.rejected++;
+        }
+
+        const quality =
+          number(
+            plant.qualityScore,
+            0
+          );
+
+        const confidence =
+          number(
+            plant.confidence,
+            0
+          );
+
+        if (quality > 0) {
+          item.qualityScores.push(
+            quality
+          );
+        }
+
+        if (confidence > 0) {
+          item.confidenceScores.push(
+            confidence
+          );
+        }
+      });
+
+      /*
+       * Keep batches visible even if there are
+       * currently no plant-level records.
+       */
+
+      if (
+        state.filters.batch === "all" &&
+        !state.filters.search &&
+        state.filters.result === "all" &&
+        state.filters.verification === "all"
+      ) {
+        state.batches.forEach(batch => {
+          if (!stats[batch.batchId]) {
+            stats[batch.batchId] = {
+              batchId: batch.batchId,
+              variety:
+                batch.variety ||
+                "Unknown",
+
+              screened:
+                number(
+                  batch.screenedCount,
+                  0
+                ),
+
+              suitable:
+                number(
+                  batch.suitableCount,
+                  0
+                ),
+
+              review:
+                number(
+                  batch.reviewCount,
+                  0
+                ),
+
+              rejected:
+                number(
+                  batch.rejectedCount,
+                  0
+                ),
+
+              qualityScores: [
+                number(
+                  batch.qualityScore,
+                  0
+                )
+              ].filter(
+                value => value > 0
+              ),
+
+              confidenceScores: []
+            };
+          }
+        });
+      }
+
+      return Object.values(stats);
+    }
+
+    /* ============================================================
+       BATCH TABLE
+       ============================================================ */
+
+    function renderBatchTable() {
+      const tbody =
+        document.getElementById(
+          "batchTableBody"
+        );
+
+      const stats =
+        getBatchStats();
+
+      if (!stats.length) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8">
+              <div class="empty-state">
+                <div class="empty-icon">—</div>
+                <strong>No matching batch data</strong>
+                <p>
+                  Change the current filters to view more records.
+                </p>
+              </div>
+            </td>
+          </tr>
+        `;
+
+        return;
+      }
+
+      tbody.innerHTML =
+        stats
+          .sort(
+            (a, b) =>
+              b.screened -
+              a.screened
+          )
+          .map(stat => {
+
+            const batch =
+              state.batches.find(
+                item =>
+                  item.batchId ===
+                  stat.batchId
+              );
+
+            const quality =
+              average(
+                stat.qualityScores
+              ) ||
+              number(
+                batch &&
+                  batch.qualityScore,
+                0
+              );
+
+            const status =
+              batch &&
+              batch.status
+                ? batch.status
+                : "Active";
+
+            return `
+              <tr>
+
+                <td>
+                  <strong>
+                    ${escapeHtml(
+                      stat.batchId
+                    )}
+                  </strong>
+                </td>
+
+                <td>
+                  ${escapeHtml(
+                    stat.variety
+                  )}
+                </td>
+
+                <td>
+                  ${stat.screened}
+                </td>
+
+                <td>
+                  ${stat.suitable}
+                  <small>
+                    (${percent(
+                      stat.suitable,
+                      stat.screened
+                    )}%)
+                  </small>
+                </td>
+
+                <td>
+                  ${stat.review}
+                  <small>
+                    (${percent(
+                      stat.review,
+                      stat.screened
+                    )}%)
+                  </small>
+                </td>
+
+                <td>
+                  ${stat.rejected}
+                  <small>
+                    (${percent(
+                      stat.rejected,
+                      stat.screened
+                    )}%)
+                  </small>
+                </td>
+
+                <td>
+                  <strong>
+                    ${
+                      quality
+                        ? quality
+                        : "—"
+                    }
+                  </strong>
+                </td>
+
+                <td>
+                  <span class="status ${statusClass(status)}">
+                    ${escapeHtml(status)}
+                  </span>
+                </td>
+
+              </tr>
+            `;
+          })
+          .join("");
+    }
+
+    /* ============================================================
+       BATCH QUALITY BARS
+       ============================================================ */
+
+    function renderBatchBars() {
+      const container =
+        document.getElementById(
+          "batchQualityBars"
+        );
+
+      const stats =
+        getBatchStats();
+
+      if (!stats.length) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <strong>No batch quality data</strong>
+            <p>There are no matching batches for the current filters.</p>
+          </div>
+        `;
+
+        return;
+      }
+
+      const sorted =
+        stats
+          .map(stat => {
+
+            const batch =
+              state.batches.find(
+                item =>
+                  item.batchId ===
+                  stat.batchId
+              );
+
+            const quality =
+              average(
+                stat.qualityScores
+              ) ||
+              number(
+                batch &&
+                  batch.qualityScore,
+                0
+              );
+
+            return {
+              ...stat,
+              quality
+            };
+          })
+          .sort(
+            (a, b) =>
+              b.quality -
+              a.quality
+          )
+          .slice(0, 6);
+
+      container.innerHTML =
+        sorted
+          .map(stat => {
+
+            const safeWidth =
+              clamp(
+                stat.quality,
+                0,
+                100
+              );
+
+            return `
+              <div class="bar-item">
+
+                <div class="bar-top">
+                  <strong>
+                    ${escapeHtml(
+                      stat.batchId
+                    )}
+                  </strong>
+
+                  <span>
+                    ${stat.quality || 0}/100
+                  </span>
+                </div>
+
+                <div class="bar-track">
+                  <div
+                    class="bar-fill"
+                    style="width:${safeWidth}%"
+                  ></div>
+                </div>
+
+              </div>
+            `;
+          })
+          .join("");
+    }
+
+    /* ============================================================
+       VERIFICATION
+       ============================================================ */
+
+    function renderVerification() {
+      const plants =
+        state.filteredPlants;
+
+      const pending =
+        plants.filter(
+          plant =>
+            normalizeVerification(
+              plant
+            ) ===
+            "Pending human review"
+        ).length;
+
+      const verifiedSuitable =
+        plants.filter(
+          plant =>
+            normalizeVerification(
+              plant
+            ) ===
+            "Verified suitable"
+        ).length;
+
+      const verifiedReject =
+        plants.filter(
+          plant =>
+            normalizeVerification(
+              plant
+            ) ===
+            "Verified reject"
+        ).length;
+
+      const further =
+        plants.filter(
+          plant =>
+            normalizeVerification(
+              plant
+            ) ===
+            "Needs further review"
+        ).length;
+
+      document.getElementById(
+        "verificationPending"
+      ).textContent = pending;
+
+      document.getElementById(
+        "verificationSuitable"
+      ).textContent =
+        verifiedSuitable;
+
+      document.getElementById(
+        "verificationReject"
+      ).textContent =
+        verifiedReject;
+
+      document.getElementById(
+        "verificationFurther"
+      ).textContent =
+        further;
+
+      const box =
+        document.getElementById(
+          "verificationSummaryBox"
+        );
+
+      const title =
+        document.getElementById(
+          "verificationSummaryTitle"
+        );
+
+      const text =
+        document.getElementById(
+          "verificationSummaryText"
+        );
+
+      box.classList.remove(
+        "pending",
+        "reject"
+      );
+
+      if (pending > 0) {
+        box.classList.add(
+          "pending"
+        );
+
+        title.textContent =
+          pending +
+          " case" +
+          (pending === 1 ? "" : "s") +
+          " pending human review";
+
+        text.textContent =
+          "These records should be checked by a trained operator before final nursery decisions are made.";
+
+        return;
+      }
+
+      if (verifiedReject > 0) {
+        box.classList.add(
+          "reject"
+        );
+
+        title.textContent =
+          verifiedReject +
+          " record" +
+          (verifiedReject === 1 ? "" : "s") +
+          " verified as reject";
+
+        text.textContent =
+          "Verified rejection records should remain traceable in the digital batch history.";
+
+        return;
+      }
+
+      title.textContent =
+        "Verification queue clear";
+
+      text.textContent =
+        "No currently filtered plant records are waiting for human verification.";
+    }
+
+    /* ============================================================
+       INDICATORS
+       ============================================================ */
+
+    function mostCommon(values) {
+      const cleaned =
+        values
+          .map(value =>
+            String(value || "")
+              .trim()
+          )
+          .filter(Boolean);
+
+      if (!cleaned.length) {
+        return "—";
+      }
+
+      const counts = {};
+
+      cleaned.forEach(value => {
+        const key =
+          value.toLowerCase();
+
+        counts[key] =
+          (counts[key] || 0) + 1;
+      });
+
+      let best =
+        cleaned[0];
+
+      let bestCount = 0;
+
+      cleaned.forEach(value => {
+        const count =
+          counts[
+            value.toLowerCase()
+          ];
+
+        if (count > bestCount) {
+          best =
+            value;
+
+          bestCount =
+            count;
+        }
+      });
+
+      return best;
+    }
+
+    function renderIndicators() {
+      const plants =
+        state.filteredPlants;
+
+      const indicators =
+        plants.map(
+          plant =>
+            plant.indicators ||
+            {}
+        );
+
+      document.getElementById(
+        "indicatorLeaf"
+      ).textContent =
+        mostCommon(
+          indicators.map(
+            item =>
+              item.leafAppearance ||
+              item.leaf ||
+              ""
+          )
+        );
+
+      document.getElementById(
+        "indicatorCanopy"
+      ).textContent =
+        mostCommon(
+          indicators.map(
+            item =>
+              item.canopyVigour ||
+              item.canopy ||
+              ""
+          )
+        );
+
+      document.getElementById(
+        "indicatorStem"
+      ).textContent =
+        mostCommon(
+          indicators.map(
+            item =>
+              item.stemStructure ||
+              item.stem ||
+              ""
+          )
+        );
+
+      document.getElementById(
+        "indicatorStress"
+      ).textContent =
+        mostCommon(
+          indicators.map(
+            item =>
+              item.visibleStress ||
+              item.stress ||
+              ""
+          )
+        );
+    }
+
+    /* ============================================================
+       CAPTURE CONDITIONS
+       ============================================================ */
+
+    function renderCaptureConditions() {
+      const counts = {
+        good: 0,
+        variable: 0,
+        low: 0,
+        other: 0
+      };
+
+      state.filteredPlants.forEach(
+        plant => {
+
+          const condition =
+            String(
+              plant.captureCondition ||
+              plant.captureConditions ||
+              ""
+            ).toLowerCase();
+
+          if (
+            condition.includes("good")
+          ) {
+            counts.good++;
+          } else if (
+            condition.includes("variable")
+          ) {
+            counts.variable++;
+          } else if (
+            condition.includes("low")
+          ) {
+            counts.low++;
+          } else {
+            counts.other++;
+          }
+        }
+      );
+
+      document.getElementById(
+        "conditionGood"
+      ).textContent =
+        counts.good;
+
+      document.getElementById(
+        "conditionVariable"
+      ).textContent =
+        counts.variable;
+
+      document.getElementById(
+        "conditionLow"
+      ).textContent =
+        counts.low;
+
+      document.getElementById(
+        "conditionOther"
+      ).textContent =
+        counts.other;
+    }
+
+    /* ============================================================
+       CSV EXPORT
+       ============================================================ */
+
+    function csvEscape(value) {
+      const text =
+        String(value ?? "");
+
+      if (
+        text.includes(",") ||
+        text.includes('"') ||
+        text.includes("\n")
+      ) {
+        return (
+          '"' +
+          text.replace(
+            /"/g,
+            '""'
+          ) +
+          '"'
+        );
+      }
+
+      return text;
+    }
+
+    function exportCsv() {
+      const plants =
+        state.filteredPlants;
+
+      const headers = [
+        "Plant ID",
+        "Batch ID",
+        "Variety",
+        "Source",
+        "Assessment ID",
+        "Classification",
+        "Confidence",
+        "Quality Score",
+        "Verification Status",
+        "Image Captured",
+        "Capture Condition",
+        "Assessed At"
+      ];
+
+      const rows =
+        plants.map(plant => [
+          plant.plantId || "",
+          plant.batchId || "",
+          plant.variety || "",
+          plant.source || "",
+          plant.assessmentId || "",
+          normalizeClassification(plant),
+          number(plant.confidence, ""),
+          number(plant.qualityScore, ""),
+          normalizeVerification(plant),
+          plant.imageCaptured ? "Yes" : "No",
+          plant.captureCondition || "",
+          plant.assessedAt || ""
+        ]);
+
+      const csv = [
+        headers,
+        ...rows
+      ]
+        .map(row =>
+          row
+            .map(csvEscape)
+            .join(",")
+        )
+        .join("\n");
+
+      const blob =
+        new Blob(
+          [csv],
+          {
+            type: "text/csv;charset=utf-8;"
+          }
+        );
+
+      const url =
+        URL.createObjectURL(blob);
+
+      const link =
+        document.createElement("a");
+
+      link.href = url;
+
+      link.download =
+        "orange-q-report-" +
+        new Date()
+          .toISOString()
+          .slice(0, 10) +
+        ".csv";
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      link.remove();
+
+      URL.revokeObjectURL(url);
+
+      showToast(
+        "Report CSV exported successfully."
+      );
+    }
+
+    /* ============================================================
+       EVENTS
+       ============================================================ */
+
+    function setupEvents() {
+      document
+        .getElementById("batchFilter")
+        .addEventListener(
+          "change",
+          event => {
+            state.filters.batch =
+              event.target.value;
+
+            applyFilters();
+          }
+        );
+
+      document
+        .getElementById("resultFilter")
+        .addEventListener(
+          "change",
+          event => {
+            state.filters.result =
+              event.target.value;
+
+            applyFilters();
+          }
+        );
+
+      document
+        .getElementById("verificationFilter")
+        .addEventListener(
+          "change",
+          event => {
+            state.filters.verification =
+              event.target.value;
+
+            applyFilters();
+          }
+        );
+
+      document
+        .getElementById("searchFilter")
+        .addEventListener(
+          "input",
+          event => {
+            state.filters.search =
+              event.target.value;
+
+            applyFilters();
+          }
+        );
+
+      document
+        .getElementById("clearFiltersBtn")
+        .addEventListener(
+          "click",
+          () => {
+
+            state.filters = {
+              batch: "all",
+              result: "all",
+              verification: "all",
+              search: ""
+            };
+
+            document.getElementById(
+              "batchFilter"
+            ).value = "all";
+
+            document.getElementById(
+              "resultFilter"
+            ).value = "all";
+
+            document.getElementById(
+              "verificationFilter"
+            ).value = "all";
+
+            document.getElementById(
+              "searchFilter"
+            ).value = "";
+
+            applyFilters();
+
+            showToast(
+              "Filters cleared."
+            );
+          }
+        );
+
+      document
+        .getElementById("refreshBtn")
+        .addEventListener(
+          "click",
+          () => {
+
+            loadData();
+
+            showToast(
+              "Report refreshed from local prototype data."
+            );
+          }
+        );
+
+      document
+        .getElementById("printBtn")
+        .addEventListener(
+          "click",
+          () => {
+            window.print();
+          }
+        );
+
+      document
+        .getElementById("exportCsvBtn")
+        .addEventListener(
+          "click",
+          exportCsv
+        );
+    }
+
+    /* ============================================================
+       INIT
+       ============================================================ */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+        setupEvents();
+        loadData();
+      }
+    );
+  </script>
+</body>
+</html>
 
